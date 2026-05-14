@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>8×8 像素字体编辑器</title>
+</head>
+<body>
+  <div class="container">
+    <h1>8×8 像素字体编辑器</h1>
+    
+    <div class="main-content">
+      <div class="editor-section">
+        <div class="character-selector">
+          <label for="charInput">选择字符：</label>
+          <input type="text" id="charInput" maxlength="1" placeholder="A" value="A">
+        </div>
+        
+        <div class="canvas-container">
+          <canvas id="pixelCanvas" width="400" height="400"></canvas>
+        </div>
+        
+        <div class="controls">
+          <button id="clearBtn">清空</button>
+          <button id="fillBtn">填充</button>
+          <button id="invertBtn">反转</button>
+        </div>
+      </div>
+      
+      <div class="preview-section">
+        <h3>预览</h3>
+        <div class="preview-container">
+          <canvas id="previewCanvas" width="64" height="64"></canvas>
+        </div>
+        
+        <div class="output-section">
+          <h3>点阵数据</h3>
+          <textarea id="outputData" readonly></textarea>
+          <button id="exportBtn">导出图片</button>
+        </div>
+      </div>
+    </div>
+    
+    <div class="character-set">
+      <h3>字符集</h3>
+      <div class="char-grid" id="charGrid"></div>
+    </div>
+    
+    <div class="export-section">
+      <h3>导出字体</h3>
+      <div class="export-controls">
+        <button id="exportBMFontBtn">导出 BMFont 字体</button>
+        <button id="exportSVGBtn">导出 SVG 字体</button>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,262 @@
+@primary-color: #4a90d9;
+@bg-color: #1a1a2e;
+@panel-bg: #16213e;
+@pixel-off: #2d2d44;
+@pixel-on: #0f3460;
+@text-color: #eaeaea;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: @bg-color;
+  color: @text-color;
+  min-height: 100vh;
+  padding: 20px;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 30px;
+  color: @primary-color;
+}
+
+.main-content {
+  display: flex;
+  gap: 30px;
+  justify-content: center;
+  margin-bottom: 30px;
+  flex-wrap: wrap;
+}
+
+.editor-section {
+  background: @panel-bg;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+.character-selector {
+  margin-bottom: 15px;
+  text-align: center;
+
+  label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+  }
+
+  input {
+    width: 80px;
+    height: 50px;
+    font-size: 24px;
+    text-align: center;
+    background: @pixel-off;
+    border: 2px solid @primary-color;
+    border-radius: 5px;
+    color: @text-color;
+    outline: none;
+
+    &:focus {
+      border-color: lighten(@primary-color, 20%);
+    }
+  }
+}
+
+.canvas-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 15px;
+
+  canvas {
+    border: 2px solid @primary-color;
+    border-radius: 5px;
+    cursor: crosshair;
+    image-rendering: pixelated;
+    image-rendering: crisp-edges;
+  }
+}
+
+.controls {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+
+  button {
+    padding: 10px 20px;
+    font-size: 14px;
+    background: @primary-color;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+    transition: background 0.3s;
+
+    &:hover {
+      background: lighten(@primary-color, 10%);
+    }
+
+    &:active {
+      transform: scale(0.98);
+    }
+  }
+}
+
+.preview-section {
+  background: @panel-bg;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  min-width: 250px;
+
+  h3 {
+    margin-bottom: 15px;
+    color: @primary-color;
+    text-align: center;
+  }
+}
+
+.preview-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+  padding: 15px;
+  background: #000;
+  border-radius: 5px;
+
+  canvas {
+    image-rendering: pixelated;
+    image-rendering: crisp-edges;
+    width: 128px;
+    height: 128px;
+  }
+}
+
+.output-section {
+  textarea {
+    width: 100%;
+    height: 150px;
+    background: @pixel-off;
+    border: 1px solid @primary-color;
+    border-radius: 5px;
+    color: @text-color;
+    padding: 10px;
+    font-family: 'Courier New', monospace;
+    font-size: 12px;
+    resize: none;
+    margin-bottom: 10px;
+  }
+
+  button {
+    width: 100%;
+    padding: 10px;
+    font-size: 14px;
+    background: @primary-color;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+    transition: background 0.3s;
+
+    &:hover {
+      background: lighten(@primary-color, 10%);
+    }
+  }
+}
+
+.character-set {
+  background: @panel-bg;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+
+  h3 {
+    margin-bottom: 15px;
+    color: @primary-color;
+  }
+}
+
+.char-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(50px, 1fr));
+  gap: 10px;
+
+  .char-item {
+    background: @pixel-off;
+    border: 1px solid @primary-color;
+    border-radius: 5px;
+    padding: 10px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s;
+
+    &:hover {
+      background: @pixel-on;
+      transform: scale(1.05);
+    }
+
+    canvas {
+      image-rendering: pixelated;
+      image-rendering: crisp-edges;
+      width: 32px;
+      height: 32px;
+      display: block;
+      margin: 0 auto 5px;
+    }
+
+    span {
+      font-size: 10px;
+      font-family: 'Courier New', monospace;
+    }
+  }
+}
+
+.export-section {
+  background: @panel-bg;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  margin-top: 20px;
+
+  h3 {
+    margin-bottom: 15px;
+    color: @primary-color;
+  }
+}
+
+.export-controls {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  flex-wrap: wrap;
+
+  button {
+    padding: 12px 24px;
+    font-size: 14px;
+    font-weight: bold;
+    background: @primary-color;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s;
+
+    &:hover {
+      background: lighten(@primary-color, 10%);
+      transform: translateY(-2px);
+    }
+
+    &:active {
+      transform: translateY(0);
+    }
+  }
+}

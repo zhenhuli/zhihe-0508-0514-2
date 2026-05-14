@@ -1,0 +1,219 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #1a1a2e;
+  color: #eaeaea;
+  min-height: 100vh;
+  padding: 20px;
+}
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+h1 {
+  text-align: center;
+  margin-bottom: 30px;
+  color: #4a90d9;
+}
+.main-content {
+  display: flex;
+  gap: 30px;
+  justify-content: center;
+  margin-bottom: 30px;
+  flex-wrap: wrap;
+}
+.editor-section {
+  background: #16213e;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+.character-selector {
+  margin-bottom: 15px;
+  text-align: center;
+}
+.character-selector label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: bold;
+}
+.character-selector input {
+  width: 80px;
+  height: 50px;
+  font-size: 24px;
+  text-align: center;
+  background: #2d2d44;
+  border: 2px solid #4a90d9;
+  border-radius: 5px;
+  color: #eaeaea;
+  outline: none;
+}
+.character-selector input:focus {
+  border-color: #9ec4eb;
+}
+.canvas-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 15px;
+}
+.canvas-container canvas {
+  border: 2px solid #4a90d9;
+  border-radius: 5px;
+  cursor: crosshair;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+}
+.controls {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+.controls button {
+  padding: 10px 20px;
+  font-size: 14px;
+  background: #4a90d9;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+.controls button:hover {
+  background: #74aae2;
+}
+.controls button:active {
+  transform: scale(0.98);
+}
+.preview-section {
+  background: #16213e;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  min-width: 250px;
+}
+.preview-section h3 {
+  margin-bottom: 15px;
+  color: #4a90d9;
+  text-align: center;
+}
+.preview-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+  padding: 15px;
+  background: #000;
+  border-radius: 5px;
+}
+.preview-container canvas {
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+  width: 128px;
+  height: 128px;
+}
+.output-section textarea {
+  width: 100%;
+  height: 150px;
+  background: #2d2d44;
+  border: 1px solid #4a90d9;
+  border-radius: 5px;
+  color: #eaeaea;
+  padding: 10px;
+  font-family: 'Courier New', monospace;
+  font-size: 12px;
+  resize: none;
+  margin-bottom: 10px;
+}
+.output-section button {
+  width: 100%;
+  padding: 10px;
+  font-size: 14px;
+  background: #4a90d9;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+.output-section button:hover {
+  background: #74aae2;
+}
+.character-set {
+  background: #16213e;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+.character-set h3 {
+  margin-bottom: 15px;
+  color: #4a90d9;
+}
+.char-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(50px, 1fr));
+  gap: 10px;
+}
+.char-grid .char-item {
+  background: #2d2d44;
+  border: 1px solid #4a90d9;
+  border-radius: 5px;
+  padding: 10px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.char-grid .char-item:hover {
+  background: #0f3460;
+  transform: scale(1.05);
+}
+.char-grid .char-item canvas {
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+  width: 32px;
+  height: 32px;
+  display: block;
+  margin: 0 auto 5px;
+}
+.char-grid .char-item span {
+  font-size: 10px;
+  font-family: 'Courier New', monospace;
+}
+.export-section {
+  background: #16213e;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  margin-top: 20px;
+}
+.export-section h3 {
+  margin-bottom: 15px;
+  color: #4a90d9;
+}
+.export-controls {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.export-controls button {
+  padding: 12px 24px;
+  font-size: 14px;
+  font-weight: bold;
+  background: #4a90d9;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+.export-controls button:hover {
+  background: #74aae2;
+  transform: translateY(-2px);
+}
+.export-controls button:active {
+  transform: translateY(0);
+}
+
