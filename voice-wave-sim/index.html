@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>语音声波模拟可视化</title>
+  <link rel="stylesheet" href="dist/css/main.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>语音声波模拟可视化</h1>
+      <p>输入文字，聆听声音，观看动态声波</p>
+    </header>
+
+    <div class="wave-container">
+      <canvas id="waveCanvas"></canvas>
+    </div>
+
+    <div class="controls">
+      <div class="input-section">
+        <label for="textInput">输入文字：</label>
+        <textarea id="textInput" placeholder="请输入要转换为语音的文字...">欢迎使用语音声波可视化系统，输入文字即可听到语音并看到动态的声波效果。</textarea>
+        <button id="speakBtn" class="btn-primary">播放语音</button>
+        <button id="stopBtn" class="btn-secondary">停止</button>
+      </div>
+
+      <div class="settings-section">
+        <h3>波形设置</h3>
+        
+        <div class="setting-item">
+          <label for="complexity">波形复杂度：<span id="complexityValue">50</span>%</label>
+          <input type="range" id="complexity" min="10" max="100" value="50">
+        </div>
+
+        <div class="setting-item">
+          <label for="speed">动画速度：<span id="speedValue">50</span>%</label>
+          <input type="range" id="speed" min="10" max="100" value="50">
+        </div>
+
+        <div class="setting-item">
+          <label for="colorScheme">配色方案：</label>
+          <select id="colorScheme">
+            <option value="neon">霓虹蓝紫</option>
+            <option value="fire">火焰橙红</option>
+            <option value="ocean">海洋蓝绿</option>
+            <option value="sunset">日落粉紫</option>
+            <option value="forest">森林绿</option>
+          </select>
+        </div>
+
+        <div class="setting-item">
+          <label for="voiceType">语音类型：</label>
+          <select id="voiceType"></select>
+        </div>
+
+        <div class="setting-item">
+          <label for="pitch">音调：<span id="pitchValue">1.0</span></label>
+          <input type="range" id="pitch" min="0.5" max="2" step="0.1" value="1">
+        </div>
+
+        <div class="setting-item">
+          <label for="rate">语速：<span id="rateValue">1.0</span></label>
+          <input type="range" id="rate" min="0.5" max="2" step="0.1" value="1">
+        </div>
+      </div>
+    </div>
+
+    <div class="status">
+      <span id="statusText">就绪 - 输入文字并点击播放</span>
+    </div>
+  </div>
+
+  <script src="src/js/app.js"></script>
+</body>
+</html>

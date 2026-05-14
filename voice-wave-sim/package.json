@@ -1,0 +1,27 @@
+{
+  "name": "voice-wave-sim",
+  "version": "1.0.0",
+  "description": "Voice text-to-speech with dynamic wave visualization",
+  "main": "index.html",
+  "scripts": {
+    "dev": "gulp dev",
+    "build": "gulp build"
+  },
+  "devDependencies": {
+    "browser-sync": "^3.0.2",
+    "detect-port": "^1.5.1",
+    "gulp": "^4.0.2",
+    "gulp-autoprefixer": "^8.0.0",
+    "gulp-clean-css": "^4.3.0",
+    "gulp-less": "^5.0.0",
+    "gulp-uglify": "^3.0.2"
+  },
+  "keywords": [
+    "voice",
+    "wave",
+    "visualization",
+    "audio"
+  ],
+  "author": "",
+  "license": "MIT"
+}
