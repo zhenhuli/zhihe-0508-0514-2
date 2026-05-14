@@ -1,0 +1,63 @@
+.app-layout {
+  min-height: 100vh;
+}
+
+.app-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 24px;
+  background: #001529;
+}
+
+.app-sider {
+  background: #fff;
+  border-right: 1px solid #e8e8e8;
+}
+
+.sider-content {
+  padding: 16px;
+}
+
+.app-content {
+  background: #f0f2f5;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.canvas-container {
+  background: #fff;
+  padding: 16px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.design-canvas {
+  border: 1px solid #d9d9d9;
+  cursor: crosshair;
+  display: block;
+}
+
+.canvas-info {
+  margin-top: 16px;
+  padding: 12px 24px;
+  background: #fff;
+  border-radius: 8px;
+  font-size: 14px;
+  color: #666;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.ant-select {
+  width: 100%;
+}
+
+.ant-divider {
+  margin: 16px 0;
+}
+
+.ant-typography {
+  margin-bottom: 16px;
+}
