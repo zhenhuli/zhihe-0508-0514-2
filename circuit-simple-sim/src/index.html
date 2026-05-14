@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>简易电路连线模拟器</title>
+</head>
+<body>
+  <div class="container">
+    <div class="sidebar">
+      <h2>元件库</h2>
+      <div class="component-list">
+        <div class="component-item" data-type="battery">
+          ⚡ 电源
+        </div>
+        <div class="component-item" data-type="bulb">
+          💡 灯泡
+        </div>
+        <div class="component-item" data-type="switch">
+          🔘 开关
+        </div>
+      </div>
+    </div>
+    <div class="canvas-container">
+      <canvas id="circuitCanvas"></canvas>
+      <div class="hint">点击元件连接点进行连线，点击开关切换状态</div>
+    </div>
+  </div>
+</body>
+</html>
