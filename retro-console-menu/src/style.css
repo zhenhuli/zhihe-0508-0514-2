@@ -1,0 +1,696 @@
+@import 'bootstrap/dist/css/bootstrap.min.css';
+
+@font-face {
+    font-family: 'PixelFont';
+    src: local('Courier New'), local('monospace');
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    image-rendering: pixelated;
+}
+
+body {
+    font-family: 'Courier New', monospace;
+    background: #0a0a0a;
+    min-height: 100vh;
+    overflow: hidden;
+}
+
+.scanlines {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    background: repeating-linear-gradient(
+        0deg,
+        rgba(0, 0, 0, 0.15),
+        rgba(0, 0, 0, 0.15) 1px,
+        transparent 1px,
+        transparent 2px
+    );
+    z-index: 9999;
+}
+
+.retro-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.crt-screen {
+    width: 100%;
+    max-width: 600px;
+    background: linear-gradient(145deg, #1a1a2e 0%, #0f0f1a 100%);
+    border: 8px solid #2d2d44;
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 
+        0 0 60px rgba(0, 255, 136, 0.2),
+        inset 0 0 100px rgba(0, 0, 0, 0.5),
+        0 0 0 4px #1a1a2e;
+    position: relative;
+}
+
+.crt-screen::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 12px;
+    box-shadow: inset 0 0 30px rgba(0, 255, 136, 0.1);
+    pointer-events: none;
+}
+
+.menu-header {
+    text-align: center;
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 3px solid #00ff88;
+}
+
+.pixel-text {
+    font-family: 'Courier New', monospace;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+}
+
+.title-glow {
+    color: #00ff88;
+    font-size: 2.5rem;
+    text-shadow: 
+        0 0 10px #00ff88,
+        0 0 20px #00ff88,
+        0 0 40px #00ff88,
+        4px 4px 0 #005533;
+    animation: titlePulse 2s ease-in-out infinite;
+}
+
+@keyframes titlePulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.8; }
+}
+
+.pixel-subtitle {
+    color: #88ffcc;
+    font-size: 1rem;
+    letter-spacing: 8px;
+    margin-top: 10px;
+}
+
+.menu-container {
+    overflow: hidden;
+    position: relative;
+}
+
+.menu-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    transition: transform 0.2s ease-out;
+}
+
+.menu-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 15px 20px;
+    background: rgba(0, 255, 136, 0.05);
+    border: 2px solid transparent;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    position: relative;
+}
+
+.menu-item:hover {
+    background: rgba(0, 255, 136, 0.1);
+}
+
+.menu-item.selected {
+    background: linear-gradient(90deg, rgba(0, 255, 136, 0.3) 0%, rgba(0, 255, 136, 0.1) 100%);
+    border-color: #00ff88;
+    box-shadow: 
+        0 0 20px rgba(0, 255, 136, 0.4),
+        inset 0 0 20px rgba(0, 255, 136, 0.1);
+    transform: translateX(10px);
+}
+
+.menu-item.selected::before {
+    content: '▶';
+    position: absolute;
+    left: -25px;
+    color: #00ff88;
+    font-size: 1.2rem;
+    animation: cursorBlink 0.5s step-end infinite;
+}
+
+@keyframes cursorBlink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+}
+
+.menu-icon {
+    font-size: 1.5rem;
+    width: 30px;
+    text-align: center;
+}
+
+.menu-text {
+    font-family: 'Courier New', monospace;
+    font-size: 1.1rem;
+    color: #ffffff;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.menu-item.selected .menu-text {
+    color: #00ff88;
+    text-shadow: 0 0 10px rgba(0, 255, 136, 0.5);
+}
+
+.menu-footer {
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 2px solid #333;
+}
+
+.controls-hint {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    color: #666;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.key-hint {
+    display: inline-block;
+    padding: 4px 8px;
+    background: #333;
+    border: 1px solid #555;
+    border-radius: 4px;
+    color: #00ff88;
+    font-weight: bold;
+    margin-right: 8px;
+}
+
+.copyright {
+    text-align: center;
+    margin-top: 20px;
+    color: #444;
+    font-size: 0.75rem;
+    letter-spacing: 2px;
+}
+
+.action-feedback {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    background: rgba(0, 255, 136, 0.9);
+    color: #000;
+    padding: 20px 40px;
+    font-family: 'Courier New', monospace;
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    border-radius: 4px;
+    z-index: 10000;
+    opacity: 0;
+    transition: all 0.3s ease;
+}
+
+.action-feedback.show {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+}
+
+.settings-panel {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(15, 15, 26, 0.98);
+    border-radius: 12px;
+    padding: 20px;
+    z-index: 100;
+    opacity: 0;
+    visibility: hidden;
+    transform: scale(0.95);
+    transition: all 0.3s ease;
+    overflow-y: auto;
+}
+
+.settings-panel.show {
+    opacity: 1;
+    visibility: visible;
+    transform: scale(1);
+}
+
+.settings-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 15px;
+    border-bottom: 2px solid #00ff88;
+    margin-bottom: 20px;
+}
+
+.settings-title {
+    color: #00ff88;
+    font-size: 1.3rem;
+    text-shadow: 0 0 10px rgba(0, 255, 136, 0.5);
+    margin: 0;
+}
+
+.close-btn {
+    background: transparent;
+    border: 2px solid #00ff88;
+    color: #00ff88;
+    width: 35px;
+    height: 35px;
+    border-radius: 4px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-family: 'Courier New', monospace;
+}
+
+.close-btn:hover {
+    background: #00ff88;
+    color: #000;
+}
+
+.settings-content {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.setting-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 15px;
+    background: rgba(0, 255, 136, 0.05);
+    border: 1px solid rgba(0, 255, 136, 0.2);
+    border-radius: 4px;
+    transition: all 0.2s ease;
+}
+
+.setting-item:hover {
+    background: rgba(0, 255, 136, 0.1);
+    border-color: rgba(0, 255, 136, 0.4);
+}
+
+.setting-label {
+    font-family: 'Courier New', monospace;
+    color: #ffffff;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 0.9rem;
+}
+
+.setting-control {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.vol-btn {
+    background: transparent;
+    border: 2px solid #00ff88;
+    color: #00ff88;
+    width: 30px;
+    height: 30px;
+    border-radius: 4px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-family: 'Courier New', monospace;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.vol-btn:hover {
+    background: #00ff88;
+    color: #000;
+}
+
+.vol-btn:active {
+    transform: scale(0.95);
+}
+
+.vol-value {
+    font-family: 'Courier New', monospace;
+    color: #00ff88;
+    font-weight: bold;
+    font-size: 0.9rem;
+    min-width: 45px;
+    text-align: center;
+}
+
+.toggle-switch {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 26px;
+}
+
+.toggle-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.toggle-slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #333;
+    transition: all 0.2s ease;
+    border-radius: 26px;
+    border: 2px solid #555;
+}
+
+.toggle-slider:before {
+    position: absolute;
+    content: "";
+    height: 16px;
+    width: 16px;
+    left: 3px;
+    bottom: 3px;
+    background-color: #666;
+    transition: all 0.2s ease;
+    border-radius: 50%;
+}
+
+.toggle-switch input:checked + .toggle-slider {
+    background-color: rgba(0, 255, 136, 0.3);
+    border-color: #00ff88;
+}
+
+.toggle-switch input:checked + .toggle-slider:before {
+    transform: translateX(24px);
+    background-color: #00ff88;
+    box-shadow: 0 0 10px rgba(0, 255, 136, 0.5);
+}
+
+.toggle-label {
+    font-family: 'Courier New', monospace;
+    color: #00ff88;
+    font-weight: bold;
+    font-size: 0.85rem;
+    min-width: 35px;
+    text-transform: uppercase;
+}
+
+.retro-select {
+    background: rgba(0, 255, 136, 0.1);
+    border: 2px solid #00ff88;
+    color: #00ff88;
+    padding: 8px 15px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.85rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.retro-select:hover {
+    background: rgba(0, 255, 136, 0.2);
+}
+
+.retro-select:focus {
+    outline: none;
+    box-shadow: 0 0 10px rgba(0, 255, 136, 0.5);
+}
+
+.retro-select option {
+    background: #1a1a2e;
+    color: #fff;
+}
+
+.test-sound-btn {
+    background: transparent;
+    border: 2px solid #00ff88;
+    color: #00ff88;
+    padding: 8px 12px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.75rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.test-sound-btn:hover {
+    background: rgba(0, 255, 136, 0.2);
+}
+
+.test-sound-btn:active {
+    transform: scale(0.95);
+    background: #00ff88;
+    color: #000;
+}
+
+.help-panel {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(15, 15, 26, 0.98);
+    border-radius: 12px;
+    padding: 20px;
+    z-index: 100;
+    opacity: 0;
+    visibility: hidden;
+    transform: scale(0.95);
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+}
+
+.help-panel.show {
+    opacity: 1;
+    visibility: visible;
+    transform: scale(1);
+}
+
+.help-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 15px;
+    border-bottom: 2px solid #00ff88;
+    margin-bottom: 15px;
+    flex-shrink: 0;
+}
+
+.help-title {
+    color: #00ff88;
+    font-size: 1.3rem;
+    text-shadow: 0 0 10px rgba(0, 255, 136, 0.5);
+    margin: 0;
+}
+
+.help-content {
+    flex: 1;
+    overflow-y: auto;
+    padding-right: 10px;
+}
+
+.help-content::-webkit-scrollbar {
+    width: 6px;
+}
+
+.help-content::-webkit-scrollbar-track {
+    background: rgba(0, 255, 136, 0.1);
+    border-radius: 3px;
+}
+
+.help-content::-webkit-scrollbar-thumb {
+    background: rgba(0, 255, 136, 0.5);
+    border-radius: 3px;
+}
+
+.help-section {
+    margin-bottom: 20px;
+}
+
+.help-section-title {
+    color: #88ffcc;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 12px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid rgba(0, 255, 136, 0.3);
+}
+
+.help-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 8px 0;
+    margin-left: 10px;
+}
+
+.help-key {
+    display: inline-block;
+    padding: 6px 12px;
+    background: rgba(0, 255, 136, 0.1);
+    border: 1px solid #00ff88;
+    border-radius: 4px;
+    color: #00ff88;
+    font-family: 'Courier New', monospace;
+    font-weight: bold;
+    font-size: 0.8rem;
+    min-width: 60px;
+    text-align: center;
+}
+
+.help-desc {
+    color: #ffffff;
+    font-family: 'Courier New', monospace;
+    font-size: 0.85rem;
+}
+
+.sound-style-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-left: 10px;
+}
+
+.sound-style-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px;
+    background: rgba(0, 255, 136, 0.05);
+    border: 1px solid rgba(0, 255, 136, 0.2);
+    border-radius: 4px;
+    transition: all 0.2s ease;
+}
+
+.sound-style-item:hover {
+    background: rgba(0, 255, 136, 0.1);
+    border-color: rgba(0, 255, 136, 0.4);
+}
+
+.sound-icon {
+    font-size: 1.2rem;
+}
+
+.sound-name {
+    color: #00ff88;
+    font-family: 'Courier New', monospace;
+    font-weight: bold;
+    font-size: 0.8rem;
+    min-width: 120px;
+}
+
+.sound-desc {
+    color: #888;
+    font-family: 'Courier New', monospace;
+    font-size: 0.75rem;
+}
+
+.about-text {
+    margin-left: 10px;
+    padding: 15px;
+    background: rgba(0, 255, 136, 0.05);
+    border: 1px solid rgba(0, 255, 136, 0.2);
+    border-radius: 4px;
+}
+
+.about-text p {
+    color: #ffffff;
+    font-family: 'Courier New', monospace;
+    font-size: 0.8rem;
+    margin: 8px 0;
+    line-height: 1.5;
+}
+
+.about-text p:first-child {
+    color: #00ff88;
+    font-weight: bold;
+    font-size: 0.9rem;
+}
+
+.help-footer {
+    padding-top: 15px;
+    border-top: 1px solid #333;
+    margin-top: 15px;
+    flex-shrink: 0;
+}
+
+.help-footer .controls-hint {
+    font-size: 0.75rem;
+}
+
+.settings-footer {
+    margin-top: 25px;
+    padding-top: 15px;
+    border-top: 1px solid #333;
+}
+
+.settings-footer .controls-hint {
+    font-size: 0.75rem;
+}
+
+@media (max-width: 576px) {
+    .title-glow {
+        font-size: 1.8rem;
+    }
+    
+    .menu-item {
+        padding: 12px 15px;
+    }
+    
+    .menu-text {
+        font-size: 0.95rem;
+    }
+    
+    .controls-hint {
+        flex-direction: column;
+        gap: 10px;
+        text-align: center;
+    }
+    
+    .setting-item {
+        flex-direction: column;
+        gap: 10px;
+        align-items: flex-start;
+    }
+    
+    .setting-control {
+        width: 100%;
+        justify-content: space-between;
+    }
+}
